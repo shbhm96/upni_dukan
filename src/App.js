@@ -1,8 +1,15 @@
-
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 function App() {
   return (
-   <p>Hello World</p>
+  <>
+  <Header/>
+   <main>
+    <h1>Welcome to Proshop</h1>
+    </main>
+    <Footer/>
+    </>
   );
 }
 
