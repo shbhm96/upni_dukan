@@ -4,7 +4,6 @@ import { Link, useParams } from 'react-router-dom'
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
 import Rating from '../components/Rating';
 
-
 const ProductScreen = (props) => {
     const params = useParams();
     const product = products.find(p=>p._id===params.id)
