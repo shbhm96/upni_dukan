@@ -1,7 +1,14 @@
 import axios from 'axios'
-import { PRODOCT_LIST_FAIL, PRODOCT_LIST_REQUEST, PRODOCT_LIST_SUCCESS } from '../constants/productConstant'
+import { PRODOCT_LIST_FAIL, 
+        PRODOCT_LIST_REQUEST, 
+        PRODOCT_LIST_SUCCESS,
+        PRODOCT_DETAILS_REQUEST,
+        PRODOCT_DETAILS_SUCCESS,
+        PRODOCT_DETAILS_FAIL
 
-export const listProducts = () =>async(dispatch)=>{
+     } from '../constants/productConstant'
+
+const listProducts = () =>async(dispatch)=>{
     try{
         dispatch({type:PRODOCT_LIST_REQUEST})
         const {data} = await axios.get("/api/products")
@@ -9,8 +16,26 @@ export const listProducts = () =>async(dispatch)=>{
             type:PRODOCT_LIST_SUCCESS,
             payload: data
         })
-    }catch(error){
-        const err = error.response && error.response.data.message ? error.response.data.message : error.message
-        dispatch({type:PRODOCT_LIST_FAIL,payload:err })
+    }catch(err){
+        const error = err.response && err.response.data.message ? err.response.data.message : err.message
+        console.log(err.message)
+        dispatch({type:PRODOCT_LIST_FAIL,payload:error })
     }   
 }
+
+const productDetails = (id) =>async(dispatch)=>{
+    try{
+        dispatch({type:PRODOCT_DETAILS_REQUEST})
+        const {data} = await axios.get(`/api/products/${id}`)
+        dispatch({
+            type:PRODOCT_DETAILS_SUCCESS,
+            payload: data
+        })
+    }catch(err){
+        const error = err.response && err.response.data.message ? err.response.data.message : err.message
+        console.log(err.message)
+        dispatch({type:PRODOCT_DETAILS_FAIL,payload:error })
+    }   
+}
+
+export {productDetails,listProducts}
