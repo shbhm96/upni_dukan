@@ -2,7 +2,7 @@ import { Container } from "react-bootstrap";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Homescreen from "./screens/Homescreen";
-import { BrowserRouter as Router,Route, Routes,Redirect, Navigate } from "react-router-dom";
+import { BrowserRouter as Router,Route, Routes} from "react-router-dom";
 import ProductScreen from "./screens/ProductScreen";
 
 const App = () => {

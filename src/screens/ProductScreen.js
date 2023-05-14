@@ -1,16 +1,16 @@
 import React from 'react'
-import products from "../products"
-import { Link, useParams } from 'react-router-dom'
-import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
-import Rating from '../components/Rating';
+
+// import { Link, useParams } from 'react-router-dom'
+// import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
+// import Rating from '../components/Rating';
 
 const ProductScreen = (props) => {
-    const params = useParams();
-    const product = products.find(p=>p._id===params.id)
-    console.log(products)
+    // const params = useParams();
+    // const product = products.find(p=>p._id===params.id)
+    // console.log(products)
   return (
     <>
-        <Link className='btn btn-dark my-3' to="/">Go Back</Link>
+        {/* <Link className='btn btn-dark my-3' to="/">Go Back</Link>
         <Row>
             <Col md={6}>
                 <Image src={product.image} alt={product.name} fluid/>
@@ -66,7 +66,7 @@ const ProductScreen = (props) => {
                     </ListGroup>
                 </Card>
             </Col>
-        </Row>
+        </Row> */}
     </>
   )
 }
