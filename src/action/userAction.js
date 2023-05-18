@@ -1,5 +1,5 @@
-import axios from "axios"
 import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS } from "../constants/userConstant"
+import backendApi from "../api/backend.js"
 
 
 export const loginUser =(email,password)=>async(dispatch)=>{
@@ -12,7 +12,7 @@ export const loginUser =(email,password)=>async(dispatch)=>{
                 'Content-type':'application/json'
             }
         }
-        const {data}= await axios.post("/api/users/login",{email,password},config)
+        const {data}= await backendApi.post("/users/login",{email,password},config)
 
         dispatch({
             type:USER_LOGIN_SUCCESS,
@@ -23,6 +23,6 @@ export const loginUser =(email,password)=>async(dispatch)=>{
     }catch(err){
         const error = err.response && err.response.data.message ? err.response.data.message : err.message
         console.log(err.message)
-        dispatch({type:USER_LOGIN_FAIL,payload:error })
+        dispatch({type:USER_LOGIN_FAIL,payload:error,loading:true })
     }
 }

@@ -21,7 +21,7 @@ const CartScreen = () => {
   },[dispatch,productId,qty])
 
   const removeFromCartHandler = () =>{
-    dispatch(removeFromCart(id))
+    dispatch(removeFromCart(productId))
   }
 
   const checkOutHamdler=()=>{

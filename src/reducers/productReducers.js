@@ -9,7 +9,7 @@ from "../constants/productConstant"
 export const productListReducer = (state={products:[]},action)=>{
     switch (action.type){
         case PRODOCT_LIST_REQUEST:
-            return {loading : true,products:[]}
+            return {loading : true}
         case PRODOCT_LIST_SUCCESS:
             return {loading:false,products:action.payload}
         case PRODOCT_LIST_FAIL:

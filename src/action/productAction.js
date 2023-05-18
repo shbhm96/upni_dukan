@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { PRODOCT_LIST_FAIL, 
         PRODOCT_LIST_REQUEST, 
         PRODOCT_LIST_SUCCESS,
@@ -7,11 +6,12 @@ import { PRODOCT_LIST_FAIL,
         PRODOCT_DETAILS_FAIL
 
      } from '../constants/productConstant'
+import backendApi from '../api/backend'
 
 const listProducts = () =>async(dispatch)=>{
     try{
         dispatch({type:PRODOCT_LIST_REQUEST})
-        const {data} = await axios.get("/api/products")
+        const {data} = await backendApi.get("/products")        
         dispatch({
             type:PRODOCT_LIST_SUCCESS,
             payload: data
@@ -26,7 +26,7 @@ const listProducts = () =>async(dispatch)=>{
 const productDetails = (id) =>async(dispatch)=>{
     try{
         dispatch({type:PRODOCT_DETAILS_REQUEST})
-        const {data} = await axios.get(`/api/products/${id}`)
+        const {data} = await backendApi.get(`/products/${id}`)
         dispatch({
             type:PRODOCT_DETAILS_SUCCESS,
             payload: data

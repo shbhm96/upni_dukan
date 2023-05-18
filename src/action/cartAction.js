@@ -1,8 +1,8 @@
-import axios from "axios"
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstant"
+import backendApi from "../api/backend.js"
 
 export const addToCart = (id,qty)=>async(dispatch,getState)=>{
-    const {data} = await axios.get(`/api/product/${id}`)
+    const {data} = await backendApi.get(`/product/${id}`)
 
     dispatch({
         type:CART_ADD_ITEM,

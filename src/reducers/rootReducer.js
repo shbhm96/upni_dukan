@@ -10,12 +10,13 @@ const rootReducer = combineReducers({
     userLogin       :   userLoginReducer
 });
 
-const cartItemsfromLocalStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")):[]
+const cartItemsfromLocalStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")):null
     
-const userInfoFromLocalStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")):[]
+const userInfoFromLocalStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")):null
 
 
 const initialState = {
+    productList:{products:null},
     cart:{cartItems:cartItemsfromLocalStorage},
     userLogin:{userInfo:userInfoFromLocalStorage}
 }
