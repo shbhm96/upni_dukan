@@ -4,11 +4,11 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import FormContainer from '../components/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser } from '../action/userAction';
+import { getUserDetails, registerUser } from '../action/userAction';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 
-const RegisterScreen = () => {
+const ProfileScreen = () => {
   const [name,setName] = useState('');
   const [email,setEmail] = useState('');
   const [password,setPassword]= useState('')
@@ -18,27 +18,36 @@ const RegisterScreen = () => {
 
   const dispatch = useDispatch()
 
-  const {loading,error,userInfo} = useSelector(state=>state.userRegister)
+  const {loading,error,user} = useSelector(state=>state.userDetails)
+
+  const {userInfo} = useSelector((state)=>state.userLogin)
 
 
   const redirect= window.location ? window.location.search.split("=")[1]: "/"
 
   useEffect(()=>{
-    if(userInfo){
-        history(redirect)
+    if(!userInfo){
+        history('/login')
+    }else{
+        if(!user.name){
+            dispatch(getUserDetails('profile'))
+        }else{
+            setName(user.name)
+            setEmail(user.email)
+        }
     }
-  },[userInfo,history,redirect])
+  },[userInfo,history,dispatch])
 
   const submitHandler=(e)=>{
     e.preventDefault()
     if(password !== confPass){
       setMsg("Password Do not match")
     }else{
-      dispatch(registerUser(name,email,password))
-      setEmail('')
-      setPassword('')
-      setName('')
-      setConfPass('')
+    //   dispatch(registerUser(name,email,password))
+    //   setEmail('')
+    //   setPassword('')
+    //   setName('')
+    //   setConfPass('')
     }
   }
   
@@ -79,4 +88,4 @@ const RegisterScreen = () => {
   )
 }
 
-export default RegisterScreen
+export default ProfileScreen
