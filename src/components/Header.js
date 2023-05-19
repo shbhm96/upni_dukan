@@ -1,10 +1,18 @@
-import React from 'react'
+import React, {  } from 'react'
 import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
-import {  useSelector } from 'react-redux'
+import {  useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { logoutUser } from '../action/userAction'
 
 const Header = () => {
-const {userInfo}=useSelector(state=>state.userLogin)
+
+  const dispatch = useDispatch()
+
+  const {userInfo}=useSelector(state=>state.userLogin)
+  
+  const logoutHandler =()=>{
+    dispatch(logoutUser())
+  }
 
   return (
     <header>
@@ -20,10 +28,11 @@ const {userInfo}=useSelector(state=>state.userLogin)
             <i className='fa fa-shopping-cart'></i>Cart
           </Link>
           {userInfo ? (
-            <NavDropdown titile={userInfo.name} id="username">
+            <NavDropdown title={userInfo.name} id="username">
               <Link to="/profile">
                 <NavDropdown.Item>Profile</NavDropdown.Item>
               </Link>
+              <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
             </NavDropdown>
           ):(
             <Link to="/login">
