@@ -11,30 +11,39 @@ const CartScreen = () => {
 
   const productId = params.id
   const qty = window.location.search ? Number(window.location.search.split("=")[1]) : 1
-  const dispatch = useDispatch
+  const dispatch = useDispatch()
+
   const {cartItems} = useSelector(state => state.cart)
+  const {userInfo} = useSelector(state=>state.userLogin)
 
   useEffect(()=>{
+    console.log("produc",productId)
     if(productId){
       dispatch(addToCart(productId,qty))
     }
-  },[dispatch,productId,qty])
+  },[dispatch,productId,qty,navigate,userInfo])
 
   const removeFromCartHandler = () =>{
     dispatch(removeFromCart(productId))
   }
 
   const checkOutHamdler=()=>{
-    navigate('/login?redirect=shipping')
+      navigate('/login')
+  }
+
+  if(cartItems.length === 0){
+    return(
+    <Message variant='danger'>Your Cart is Empty!</Message>
+    )
   }
 
   return (
     <Row>
       <Col md={8}>
         <h1>Shopping Cart</h1>
-        {cartItems.length === 0 ? <Message>Your Cart is Empty</Message>:(
+        
           <ListGroup variant='flush'>
-            {cartItems.map(item=>{
+            {cartItems.length !==0 && cartItems.map(item=>{
              return <ListGroup.Item key={item.product}>
                 <Row>
                    <Col md={2}>
@@ -64,7 +73,7 @@ const CartScreen = () => {
               </ListGroup.Item>
             })}
           </ListGroup>
-        )}
+        
 
       </Col>
       <Col md={4}>

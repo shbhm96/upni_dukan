@@ -18,13 +18,14 @@ const LoginScreen = () => {
   const {loading,error,userInfo} = useSelector(state=>state.userLogin)
 
 
-  const redirect= window.location ? window.location.search.split("=")[1]: "/"
+  // const redirect= window.location ? window.location.pathname.toString().split("=")[1] : "/"
+  // console.log("value",redirect)
 
   useEffect(()=>{
     if(userInfo){
-        history(redirect)
+        history("/")
     }
-  },[userInfo,history,redirect])
+  },[userInfo,history])
 
   const submitHandler=(e)=>{
     e.preventDefault()
@@ -52,7 +53,7 @@ const LoginScreen = () => {
         </Button>
         <Row>
           <Col>
-            New Customer?<Link to={redirect ? `/register?redirect=${redirect}`:'/register'}>Register</Link>
+            New Customer?<Link to={'/register'}>Register</Link>
           </Col>
         </Row>
       </Form>

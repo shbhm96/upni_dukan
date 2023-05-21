@@ -20,7 +20,6 @@ const RegisterScreen = () => {
 
   const {loading,error,userInfo} = useSelector(state=>state.userRegister)
 
-
   const redirect= window.location ? window.location.search.split("=")[1]: "/"
 
   useEffect(()=>{
@@ -52,7 +51,7 @@ const RegisterScreen = () => {
       <Form.Group controlId='name'>
         <Form.Label>Name</Form.Label>
         <Form.Control placeholder='enter your name' type='name' onChange={(e)=>setName(e.target.value)} value={name}/ >
-        </Form.Group>
+      </Form.Group>
         <Form.Group controlId='emailId'>
         <Form.Label>Email Address</Form.Label>
         <Form.Control placeholder='enter your email address' type='email' onChange={(e)=>setEmail(e.target.value)} value={email}/ >

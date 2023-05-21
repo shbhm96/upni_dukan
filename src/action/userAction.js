@@ -8,7 +8,10 @@ import {
     USER_LOGOUT, 
     USER_REGISTER_FAIL, 
     USER_REGISTER_REQUEST,
-    USER_REGISTER_SUCCESS
+    USER_REGISTER_SUCCESS,
+    USER_UPDATE_PROFILE_FAIL,
+    USER_UPDATE_PROFILE_REQUEST,
+    USER_UPDATE_PROFILE_SUCCESS
 } 
     from "../constants/userConstant"
 import backendApi from "../api/backend.js"
@@ -77,10 +80,11 @@ export const registerUser =(name,email,password)=>async(dispatch)=>{
     }
 }
 
-export const getUserDetails =(id)=>async(dispatch,getState)=>{
+export const getUserDetails =()=>async(dispatch,getState)=>{
     try{
         dispatch({
-            type:USER_DETAILS_REQUEST
+            type:USER_DETAILS_REQUEST,
+            loading:true
         })
 
         const {userLogin : {userInfo}} = getState()
@@ -91,7 +95,7 @@ export const getUserDetails =(id)=>async(dispatch,getState)=>{
                 Authorization:`Bearer ${userInfo.token}`
             }
         }
-        const {data}= await backendApi.post(`/users/${id}`,config)
+        const {data}= await backendApi.get(`/users/profile/update`,config)
 
         dispatch({
             type:USER_DETAILS_SUCCESS,
@@ -106,5 +110,35 @@ export const getUserDetails =(id)=>async(dispatch,getState)=>{
         const error = err.response && err.response.data.message ? err.response.data.message : err.message
         console.log(err.message)
         dispatch({type:USER_DETAILS_FAIL,payload:error,loading:true })
+    }
+}
+
+export const updateUserProfile = (user) =>async(dispatch,getState)=>{
+    try{
+        dispatch({
+            type:USER_UPDATE_PROFILE_REQUEST,
+            loading:true
+        })
+
+        const {userLogin : { userInfo }} = getState()
+
+        const config = {
+            headers:{
+                'Content-type':'application/json',
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        const {data}= await backendApi.get(`/users/profile/update`,user,config)
+
+        dispatch({
+            type:USER_UPDATE_PROFILE_SUCCESS,
+            payload:data,
+        })
+        
+           
+    }catch(err){
+        const error = err.response && err.response.data.message ? err.response.data.message : err.message
+        console.log(err.message)
+        dispatch({type:USER_UPDATE_PROFILE_FAIL,payload:error,loading:true })
     }
 }

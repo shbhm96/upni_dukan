@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import FormContainer from '../components/FormContainer';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails, registerUser } from '../action/userAction';
+import { getUserDetails, updateUserProfile } from '../action/userAction';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 
@@ -17,33 +16,23 @@ const ProfileScreen = () => {
   const history = useNavigate()
 
   const dispatch = useDispatch()
-
-  const {loading,error,user} = useSelector(state=>state.userDetails)
-
+  
   const {userInfo} = useSelector((state)=>state.userLogin)
-
-
-  const redirect= window.location ? window.location.search.split("=")[1]: "/"
+  const {success} =useSelector((state)=>state.userUpdateProfile)
 
   useEffect(()=>{
     if(!userInfo){
-        history('/login')
-    }else{
-        if(!user.name){
-            dispatch(getUserDetails('profile'))
-        }else{
-            setName(user.name)
-            setEmail(user.email)
-        }
+      history('/login')
     }
-  },[userInfo,history,dispatch])
+  },[dispatch,history,userInfo])
 
   const submitHandler=(e)=>{
     e.preventDefault()
     if(password !== confPass){
       setMsg("Password Do not match")
     }else{
-    //   dispatch(registerUser(name,email,password))
+      const user = {id: userInfo._id,name,email,password}
+      dispatch(updateUserProfile(user))
     //   setEmail('')
     //   setPassword('')
     //   setName('')
@@ -52,19 +41,21 @@ const ProfileScreen = () => {
   }
   
   return (
-    <FormContainer>
-      <h1>Sign Up</h1>
+    <Row>
+      <Col md={3}>
+      <h2>User Profile</h2>
       {msg && <Message variant="info">{msg}</Message>}
-      {error &&<Message variant="danger">{error}</Message>}
-      {loading && <Loader/>}
+      {/* {error &&<Message variant="danger">{error}</Message>}
+      {loading && <Loader/>} */}
+      {success && <Message variant='sucess'>Profile Updated!</Message>}
       <Form onSubmit={submitHandler} >
       <Form.Group controlId='name'>
         <Form.Label>Name</Form.Label>
-        <Form.Control placeholder='enter your name' type='name' onChange={(e)=>setName(e.target.value)} value={name}/ >
+        <Form.Control placeholder='enter your name' type='name' onChange={(e)=>setName(e.target.value)} value={userInfo.name}/ >
         </Form.Group>
         <Form.Group controlId='emailId'>
         <Form.Label>Email Address</Form.Label>
-        <Form.Control placeholder='enter your email address' type='email' onChange={(e)=>setEmail(e.target.value)} value={email}/ >
+        <Form.Control placeholder='enter your email address' type='email' onChange={(e)=>setEmail(e.target.value)} value={userInfo.email}/ >
         </Form.Group>
         <Form.Group controlId='password'>
         <Form.Label>Password</Form.Label>
@@ -75,15 +66,15 @@ const ProfileScreen = () => {
         <Form.Control placeholder='enter your confirm password' type='password' onChange={(e)=>setConfPass(e.target.value) || setMsg('')} value={confPass}/ >       
         </Form.Group>
         <Button type="submit" variant="primary">
-          Register
+          Update
         </Button>
-        <Row>
-          <Col>
-            Have an Account?<Link to={redirect ? `/login?redirect=${redirect}`:'/login'}>Login</Link>
-          </Col>
-        </Row>
       </Form>
-    </FormContainer>  
+      </Col>
+
+      <Col md={9}>
+        <h2>My Orders</h2>
+      </Col>
+    </Row>
     
   )
 }

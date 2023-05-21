@@ -13,14 +13,18 @@ const ProductScreen = ({history}) => {
     const params = useParams()
     const {product}=useSelector(state=>state.productDetails)
 
-    useEffect(()=>{
-        dispatch(productDetails(params.id))
-    },[dispatch,params])
-
-
     const addToCartHandler = () => {
         navigate(`/cart/${params.id}?qty=${qty}`)
     }
+
+    useEffect(()=>{
+        if(product){
+        dispatch(productDetails(params.id))
+        }
+    },[dispatch,params])
+
+
+    
   return (
     <>
         <Link className='btn btn-dark my-3' to="/">Go Back</Link>
@@ -70,8 +74,7 @@ const ProductScreen = ({history}) => {
                         </ListGroup.Item>
                         {product.countInStock > 0 && (
                             <ListGroup.Item>
-                                <Row>
-                                    {console.log(product.countInStock)}
+                                <Row>                                    
                                     <Col>Qty:</Col>
                                     <Col><Form.Control 
                                             as="select" 
