@@ -26,7 +26,7 @@ const PlaceOrderScreen = () => {
 
     useEffect(()=>{
         if(success){
-            history(`/order${order._id}`)
+            history(`/order/${order._id}`)
         }
     })
 

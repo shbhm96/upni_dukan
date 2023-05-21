@@ -17,7 +17,7 @@ const CartScreen = () => {
   const {userInfo} = useSelector(state=>state.userLogin)
 
   useEffect(()=>{
-    console.log("produc",productId)
+    
     if(productId){
       dispatch(addToCart(productId,qty))
     }
@@ -28,7 +28,11 @@ const CartScreen = () => {
   }
 
   const checkOutHamdler=()=>{
+    if(!userInfo){
       navigate('/login')
+    }else{
+      navigate('/shipping')
+    }
   }
 
   if(cartItems.length === 0){
@@ -40,6 +44,7 @@ const CartScreen = () => {
   return (
     <Row>
       <Col md={8}>
+        
         <h1>Shopping Cart</h1>
         
           <ListGroup variant='flush'>
@@ -83,7 +88,7 @@ const CartScreen = () => {
                   <h2>Subtotal({cartItems.reduce((acc,item)=>
                     acc+item.qty,0
                   )}) items</h2>
-                  ${cartItems.reduce((acc,item)=> acc+item.qty * item.price,0).toFixed(2)}
+                  ${cartItems.reduce((acc,item)=> acc+Number(item.qty) * Number(item.price),0).toFixed(2)}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Button type="button" className='btn-block' disabled={cartItems.length ===0}

@@ -31,6 +31,9 @@ const productDetails = (id) =>async(dispatch)=>{
             type:PRODOCT_DETAILS_SUCCESS,
             payload: data
         })
+        
+        localStorage.setItem("productDetails",JSON.stringify(data))
+        
     }catch(err){
         const error = err.response && err.response.data.message ? err.response.data.message : err.message
         console.log(err.message)
