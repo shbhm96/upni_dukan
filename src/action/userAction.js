@@ -1,6 +1,7 @@
 import { 
     USER_DETAILS_FAIL,
     USER_DETAILS_REQUEST,
+    USER_DETAILS_RESET,
     USER_DETAILS_SUCCESS,
     USER_LOGIN_FAIL, 
     USER_LOGIN_REQUEST, 
@@ -15,6 +16,9 @@ import {
 } 
     from "../constants/userConstant"
 import backendApi from "../api/backend.js"
+import { MY_ORDER_LIST_RESET } from "../constants/orderConstants"
+import { PRODOCT_DETAILS_RESET, PRODOCT_LIST_RESET } from "../constants/productConstant"
+import { CART_RESET } from "../constants/cartConstant"
 
 
 export const loginUser =(email,password)=>async(dispatch)=>{
@@ -43,8 +47,14 @@ export const loginUser =(email,password)=>async(dispatch)=>{
 }
 
 export const logoutUser = () =>(dispatch)=>{   
-        localStorage.removeItem("userInfo")
-        dispatch({type:USER_LOGOUT})        
+        localStorage.clear()
+        dispatch({type:USER_LOGOUT})  
+        dispatch({type:USER_DETAILS_RESET})      
+        dispatch({type:MY_ORDER_LIST_RESET})
+        dispatch({type:PRODOCT_LIST_RESET})
+        dispatch({type:PRODOCT_DETAILS_RESET})
+        dispatch({type:CART_RESET})
+
 }
 
 export const registerUser =(name,email,password)=>async(dispatch)=>{

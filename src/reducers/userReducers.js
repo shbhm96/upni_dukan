@@ -1,6 +1,7 @@
 import { 
     USER_DETAILS_FAIL,
     USER_DETAILS_REQUEST,
+    USER_DETAILS_RESET,
     USER_DETAILS_SUCCESS,
     USER_LOGIN_FAIL, 
     USER_LOGIN_REQUEST, 
@@ -24,7 +25,9 @@ export const userLoginReducer = (state={},action)=>{
         case USER_LOGIN_FAIL:
             return {loading:false,error:action.payload}
         case USER_LOGOUT:
-            return {}         
+            return {
+                userInfo:null
+            }         
         default:
             return state
     }
@@ -39,7 +42,9 @@ export const userRegisterReducer = (state={},action)=>{
         case USER_REGISTER_FAIL:
             return {loading:false,error:action.payload}
         case USER_LOGOUT:
-            return {}        
+            return {
+                userInfo:null
+            }        
         default:
             return state
     }
@@ -53,6 +58,8 @@ export const userDetailsReducer = (state={user:{}},action)=>{
             return {...state,loading:false,user:action.payload}
         case USER_DETAILS_FAIL:
             return {loading:false,error:action.payload}    
+        
+            
         default:
             return state
     }

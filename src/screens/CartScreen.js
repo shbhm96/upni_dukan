@@ -41,9 +41,15 @@ const CartScreen = () => {
     )
   }
 
+  const shopMoreHandler = () => {
+    navigate('/')
+  }
+
   return (
     <Row>
       <Col md={8}>
+
+        <Button type="button" className='btn-solid' onClick={shopMoreHandler}>Shop More</Button>
         
         <h1>Shopping Cart</h1>
         

@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import { productDetailsReducer, productListReducer } from "./productReducers";
 import { cartReducer } from "./cartReducers";
 import { userDetailsReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer } from "./userReducers";
-import { orderCreateReducer, orderDetailsReducer } from "./orderReducers";
+import { myOrderListReducer, orderCreateReducer, orderDetailsReducer, orderPayReducer } from "./orderReducers";
 
 const rootReducer = combineReducers({
     productList      :   productListReducer,
@@ -13,7 +13,9 @@ const rootReducer = combineReducers({
     userDetails      :   userDetailsReducer,
     userUpdateProfile:   userUpdateProfileReducer,
     orderCreate      :   orderCreateReducer,
-    orderDetails     :   orderDetailsReducer
+    orderDetails     :   orderDetailsReducer,
+    orderPay         :   orderPayReducer,
+    myOrderList      :   myOrderListReducer
 });
 
 const cartItemsfromLocalStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")):[]
@@ -27,7 +29,9 @@ const userInfoFromLocalStorage = localStorage.getItem("userInfo") ? JSON.parse(l
 const initialState = {
     productList:{products:null},
     cart:{cartItems:cartItemsfromLocalStorage,shippingAddress : shippingAddressFromStorage},
-    userLogin:{userInfo:userInfoFromLocalStorage},    
+    userLogin:{userInfo:userInfoFromLocalStorage},
+    orderDetails:{orderItems:[],shippingAddress:{}},
+    myOrderList:{orders:[]}
 }
 
 export {rootReducer,initialState}
