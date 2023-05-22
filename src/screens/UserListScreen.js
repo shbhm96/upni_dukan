@@ -12,8 +12,7 @@ const UserListScreen = () => {
 
     const {loading,error,users} = useSelector(state => state.usersList)
     const {userInfo} = useSelector(state=>state.userLogin)
-    const {success:successDelete,loading:deleteLoading,error:deleteError} = 
-    useSelector(state => state.userDelete)
+    const {success:successDelete,loading:deleteLoading,error:deleteError} = useSelector(state => state.userDelete)
     const history = useNavigate()
 
     useEffect(()=>{
@@ -48,7 +47,7 @@ const UserListScreen = () => {
                 </thead>
                 <tbody>
                     {users.map(user=>{
-                        <tr key={user._id}>
+                        return <tr key={user._id}>
                             <td>{user._id}</td>
                             <td>{user.name}</td>
                             <td><a href={`mailto:${user.email}`}>{user.email}</a></td>
