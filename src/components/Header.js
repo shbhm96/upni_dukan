@@ -18,6 +18,18 @@ const Header = () => {
     history('/profile')
   }
 
+  const adminShowAllUser = () =>{
+    history("/admin/users")
+  }
+
+  const adminShowAllProducts = ()=>{
+    history("/admin/products")
+  }
+
+  const adminShowAllOrders = ()=>{
+    history("/admin/orders")
+  }
+
   return (
     <header>
      <Navbar bg="dark" variant='dark' expand="lg" collapseOnSelect>     
@@ -47,6 +59,23 @@ const Header = () => {
             <Link to="/login">
             <i class="fa fa-sign-in" aria-hidden="true"></i>Sign In
         </Link>
+          )}
+          {userInfo && userInfo.isAdmin && (
+            <NavDropdown title="admin" id="adminMenu">
+            <NavDropdown.Item onClick={adminShowAllUser}>
+              <i class="fa fa-user p-1" aria-hidden="true"></i>
+                    Users
+            </NavDropdown.Item>
+            
+            <NavDropdown.Item onClick={adminShowAllProducts}>
+              <i class="fa fa-user p-1" aria-hidden="true"></i>
+                    Products
+            </NavDropdown.Item>
+            <NavDropdown.Item onClick={adminShowAllOrders}>
+              <i class="fa fa-user p-1" aria-hidden="true"></i>
+                    Orders
+            </NavDropdown.Item>
+          </NavDropdown>
           )}          
           </Nav>
         </Navbar.Collapse>

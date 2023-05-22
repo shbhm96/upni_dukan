@@ -3,6 +3,10 @@ import {
     USER_DETAILS_REQUEST,
     USER_DETAILS_RESET,
     USER_DETAILS_SUCCESS,
+    USER_LIST_FAIL,
+    USER_LIST_REQUEST,
+    USER_LIST_RESET,
+    USER_LIST_SUCCESS,
     USER_LOGIN_FAIL, 
     USER_LOGIN_REQUEST, 
     USER_LOGIN_SUCCESS, 
@@ -54,6 +58,7 @@ export const logoutUser = () =>(dispatch)=>{
         dispatch({type:PRODOCT_LIST_RESET})
         dispatch({type:PRODOCT_DETAILS_RESET})
         dispatch({type:CART_RESET})
+        dispatch({type:USER_LIST_RESET})
 
 }
 
@@ -150,5 +155,33 @@ export const updateUserProfile = (user) =>async(dispatch,getState)=>{
         const error = err.response && err.response.data.message ? err.response.data.message : err.message
         console.log(err.message)
         dispatch({type:USER_UPDATE_PROFILE_FAIL,payload:error,loading:true })
+    }
+}
+
+export const usersList = () =>async(dispatch,getState)=>{
+    try{
+        dispatch({
+            type:USER_LIST_REQUEST,
+            loading:true
+        })
+
+        const {userLogin : { userInfo }} = getState()
+
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        const {data}= await backendApi.get(`/api/admin/allusers`,config)
+
+        dispatch({
+            type:USER_LIST_SUCCESS,
+            payload:data,
+        })        
+           
+    }catch(err){
+        const error = err.response && err.response.data.message ? err.response.data.message : err.message
+        console.log(err.message)
+        dispatch({type:USER_LIST_FAIL,payload:error,loading:true })
     }
 }
