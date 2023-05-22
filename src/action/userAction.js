@@ -1,4 +1,7 @@
 import { 
+    USER_DELETE_FAIL,
+    USER_DELETE_REQUEST,
+    USER_DELETE_SUCCESS,
     USER_DETAILS_FAIL,
     USER_DETAILS_REQUEST,
     USER_DETAILS_RESET,
@@ -172,7 +175,7 @@ export const usersList = () =>async(dispatch,getState)=>{
                 Authorization:`Bearer ${userInfo.token}`
             }
         }
-        const {data}= await backendApi.get(`/api/admin/allusers`,config)
+        const {data}= await backendApi.get(`/admin/allusers`,config)
 
         dispatch({
             type:USER_LIST_SUCCESS,
@@ -183,5 +186,33 @@ export const usersList = () =>async(dispatch,getState)=>{
         const error = err.response && err.response.data.message ? err.response.data.message : err.message
         console.log(err.message)
         dispatch({type:USER_LIST_FAIL,payload:error,loading:true })
+    }
+}
+
+export const userDelete = (id) =>async(dispatch,getState)=>{
+    try{
+        dispatch({
+            type:USER_DELETE_REQUEST,
+            loading:true
+        })
+
+        const {userLogin : { userInfo }} = getState()
+
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        const {data}= await backendApi.delete(`/api/admin/deleteUser/${id}`,config)
+
+        dispatch({
+            type:USER_DELETE_SUCCESS,
+            payload:data,
+        })        
+           
+    }catch(err){
+        const error = err.response && err.response.data.message ? err.response.data.message : err.message
+        console.log(err.message)
+        dispatch({type:USER_DELETE_FAIL,payload:error,loading:true })
     }
 }
