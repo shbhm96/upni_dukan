@@ -78,7 +78,7 @@ const ProductEditScreen = () => {
         <Form.Label>Image</Form.Label>
         <Form.Control placeholder='Enter image Url' type='text' onChange={(e)=>setImage(e.target.value)} value={image} >          
         </Form.Control>
-          <Form.File>
+          <Form.File id="image-file" label="Choose File" cust>
             
           </Form.File>
         </Form.Group>
