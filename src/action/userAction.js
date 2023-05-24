@@ -17,9 +17,12 @@ import {
     USER_REGISTER_FAIL, 
     USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS,
+    USER_UPDATE_FAIL,
     USER_UPDATE_PROFILE_FAIL,
     USER_UPDATE_PROFILE_REQUEST,
-    USER_UPDATE_PROFILE_SUCCESS
+    USER_UPDATE_PROFILE_SUCCESS,
+    USER_UPDATE_REQUEST,
+    USER_UPDATE_SUCCESS
 } 
     from "../constants/userConstant"
 import backendApi from "../api/backend.js"
@@ -214,5 +217,32 @@ export const userDelete = (id) =>async(dispatch,getState)=>{
         const error = err.response && err.response.data.message ? err.response.data.message : err.message
         console.log(err.message)
         dispatch({type:USER_DELETE_FAIL,payload:error,loading:true })
+    }
+}
+
+export const updateUser = (user) =>async(dispatch,getState)=>{
+    try{
+        dispatch({
+            type:USER_UPDATE_REQUEST,
+            loading:true
+        })
+
+        const {userLogin : { userInfo }} = getState()
+
+        const config = {
+            headers:{
+                'Content-type':'application/json',
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        const {data}= await backendApi.delete(`/api/admin/updateUser/${user._id}`,user,config)
+
+        dispatch({type:USER_UPDATE_SUCCESS})        
+           
+        dispatch({type:USER_DETAILS_SUCCESS,payload:data})        
+    }catch(err){
+        const error = err.response && err.response.data.message ? err.response.data.message : err.message
+        console.log(err.message)
+        dispatch({type:USER_UPDATE_FAIL,payload:error,loading:true })
     }
 }

@@ -15,6 +15,9 @@ import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import UserListScreen from "./screens/UserListScreen";
+import UserEditScreen from "./screens/UserEditScreen";
+import ProductiListScreen from "./screens/ProductListScreen";
+import ProductEditScreen from "./screens/ProductEditScreen";
 
 const App = () => {
   return (
@@ -25,6 +28,9 @@ const App = () => {
       <Routes>
           <Route path="/login" element={<LoginScreen/>} exact/>
           <Route path="/admin/users" element={<UserListScreen/>} exact/>
+          <Route path="/admin/products" element={<ProductiListScreen/>} exact/>
+          <Route path="/admin/product/:id/edit" element={<ProductiListScreen/>} exact/>
+          <Route path="/admin/product/createProduct" element={<ProductEditScreen/>}exact/>
           <Route path="/order/:id" element={<OrderScreen/>} exact/>
           <Route path="/shipping" element={<ShippingScreen/>} exact/>
           <Route path="/payment" element={<PaymentScreen/>} exact/>
@@ -36,6 +42,8 @@ const App = () => {
           <Route path="/cart/:id?" element={<CartScreen/>} exact/>
           <Route path="*" element={<PageNotFound/>} />
           <Route path="/test" element={<TestElement/>} exact/>
+          <Route path="/admin/user/:id/edit" element={<UserEditScreen/>}/>
+
           
 
       </Routes>

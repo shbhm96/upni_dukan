@@ -94,9 +94,7 @@ export const payOrder = (orderId,paymentResult) =>async(dispatch,getState)=>{
     }
 }
 
-export const myOrderList = () =>async(dispatch,getState)=>{
-    
-    
+export const myOrderList = () =>async(dispatch,getState)=>{    
     try{
         dispatch({
             type:MY_ORDER_LIST_REQUEST,
