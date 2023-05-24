@@ -5,7 +5,7 @@ import { Link, useNavigate, } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { deleteProduct, listProducts,createProduct } from '../action/productAction';
+import { deleteProduct, listProducts } from '../action/productAction';
 import { PRODOCT_CREATE_RESET } from '../constants/productConstant';
 
 const ProductiListScreen = ({getState}) => {

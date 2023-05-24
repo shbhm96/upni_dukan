@@ -21,7 +21,7 @@ const ProductScreen = ({history}) => {
         if(product){
         dispatch(productDetails(params.id))
         }
-    },[dispatch,params])
+    },[dispatch,params,product])
 
 
     

@@ -4,11 +4,9 @@ import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import FormContainer from '../components/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails, updateUser } from '../action/userAction';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { USER_UPDATE_RESET } from '../constants/userConstant';
-import { listProducts, productDetails } from '../action/productAction';
+import {  productDetails } from '../action/productAction';
 
 const ProductEditScreen = () => {
   const productId =useParams().id
@@ -21,7 +19,7 @@ const ProductEditScreen = () => {
   const [brand,setBrand] = useState('');
   const [countInStock,setCountInStock] = useState(0);
   const [description,setDescription] = useState('')
-  const [uploading, setUploadig] = useState(false)
+  
   
 
   const dispatch = useDispatch()

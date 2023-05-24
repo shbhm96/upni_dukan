@@ -20,7 +20,7 @@ const OrderScreen = () => {
     useEffect(()=>{
         console.log('User Esffect')
         dispatch(getOrderDetails(orderId))
-    },[])
+    },[dispatch,orderId])
 
 
   return (

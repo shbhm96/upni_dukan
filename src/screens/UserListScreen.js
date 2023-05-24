@@ -22,7 +22,7 @@ const UserListScreen = () => {
         else{
             history("/login")
         }
-    },[dispatch,history,successDelete])
+    },[dispatch,history,successDelete,userInfo])
 
     const deleteHandler = (id) =>{
         if(window.confirm("Are you sure")){
@@ -34,6 +34,8 @@ const UserListScreen = () => {
   return (
     <>
         <h1>Users</h1>
+        {deleteLoading && <Loader/>}
+        {deleteError && <Message variant="danger">{deleteError}</Message>}
         {loading ? <Loader/> : error ? <Message variant="danger">{error}</Message>:(
             <Table striped hover bordered responsive className='table-sm'>
                 <thead>
