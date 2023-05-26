@@ -28,10 +28,10 @@ const ProductScreen = ({history}) => {
   return (
     <>
         <Link className='btn btn-dark my-3' to="/">Go Back</Link>
-        <img src="./images/airpods.jpg" alt="airpods"/>
+        <img src={require("./images/airpods.jpg")} alt="airpods"/>
         <Row>
             <Col md={6}>
-                <Image src={product.image} alt={product.name} fluid/>
+                <Image src={`./assets/${product.image}`} alt={product.name} fluid/>
             </Col> 
             <Col md={3}>
                 <ListGroup variant='flush'>
